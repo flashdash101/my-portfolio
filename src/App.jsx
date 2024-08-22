@@ -16,7 +16,7 @@ const Home = () => (
         iteration="1"
         fillMode="forwards"
       >
-        <Link to="/projects" className="button">View My Projects</Link>
+        <Link to="/my-portfolio/projects" className="button">View My Projects</Link>
       </MovingComponent>
       <MovingComponent
         type="slideInFromRight"
@@ -149,7 +149,7 @@ const Projects = () => (
       iteration="1"
       fillMode="forwards"
     >
-      <Link to="/" className="button">
+      <Link to="/my-portfolio/" className="button">
         Back to Home
       </Link>
     </MovingComponent>
@@ -161,8 +161,8 @@ const App = () => (
   <Router>
     <div id="root">
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/projects" element={<Projects />} />
+        <Route path="/my-portfolio/" element={<Home />} />
+        <Route path="/my-portfolio/projects" element={<Projects />} />
       </Routes>
     </div>
   </Router>
