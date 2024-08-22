@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import { Github, ExternalLink, Linkedin } from 'lucide-react';
 import projects from './projects'
 import MovingComponent from 'react-moving-text';
@@ -16,7 +16,7 @@ const Home = () => (
         iteration="1"
         fillMode="forwards"
       >
-        <Link to="/my-portfolio/projects" className="button">View My Projects</Link>
+        <Link to="/projects" className="button">View My Projects</Link>
       </MovingComponent>
       <MovingComponent
         type="slideInFromRight"
@@ -149,7 +149,7 @@ const Projects = () => (
       iteration="1"
       fillMode="forwards"
     >
-      <Link to="/my-portfolio/" className="button">
+      <Link to="/" className="button">
         Back to Home
       </Link>
     </MovingComponent>
@@ -161,8 +161,8 @@ const App = () => (
   <Router>
     <div id="root">
       <Routes>
-        <Route path="/my-portfolio/" element={<Home />} />
-        <Route path="/my-portfolio/projects" element={<Projects />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/projects" element={<Projects />} />
       </Routes>
     </div>
   </Router>

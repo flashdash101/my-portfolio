@@ -6,7 +6,7 @@ const projects = [
       "Real-time Tesla-like visualization using computer vision and 3D graphics.",
     tags: ["Computer Vision", "3D Graphics", "Homography Transformation"],
     github: "https://github.com/flashdash101/CarVisulisation",
-    image: "./public/CarVisionModel.png",
+    image: "./CarVisionModel.png",
   },
 
   {
@@ -22,12 +22,12 @@ const projects = [
     ],
     github: "https://github.com/yourusername/football-scout",
     demo: "https://flashdash101.github.io/football-suggest/",
-    image: "./public/FootballScout.png",
+    image: "./FootballScout.png",
   },
   {
     title: "Football Club Risk Assessment and Strategy Suggester",
     description:
-      "Developed risk assessment and stragety suggestion system, which predicts the financial risk of a club using a trained Random Forest Regression model and provides strategies based on shap values",
+      "Developed risk assessment and strategy suggestion system, which predicts the financial risk of a club using a trained Random Forest Regression model and provides strategies based on shap values",
     tags: [
       "Machine Learning",
       "Risk Assessment",
@@ -37,7 +37,7 @@ const projects = [
     ],
     github: "https://github.com/yourusername/football-club-risk-assessment",
     demo: "https://flashdash101.github.io/risk-football-model/",
-    image: "./public/FootballClubRiskAssessment.png",
+    image: "./FootballClubRiskAssessment.png",
   },
 ];
 
