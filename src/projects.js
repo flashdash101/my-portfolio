@@ -3,7 +3,7 @@ const projects = [
   {
     title: "Advanced Car Simulation",
     description:
-      "Real-time Tesla-like visualization using computer vision and 3D graphics.",
+      "Real-time objection detection and visualization using computer vision and 3D graphics.",
     tags: ["Computer Vision", "3D Graphics", "Homography Transformation"],
     github: "https://github.com/flashdash101/CarVisulisation",
     image: "./CarVisionModel.png",
