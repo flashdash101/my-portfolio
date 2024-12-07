@@ -1,12 +1,12 @@
 // Projects component
 const projects = [
   {
-    title: "Advanced Car Simulation",
+    title: "Credit Risk Model",
     description:
-      "Real-time objection detection and visualization using computer vision and 3D graphics.",
-    tags: ["Computer Vision", "3D Graphics", "Homography Transformation"],
-    github: "https://github.com/flashdash101/CarVisulisation",
-    image: "./CarVisionModel.png",
+      "A credit risk model that calculates the expected loss for said given input",
+    tags: ["Pipelines", "Machine Learning", "Statistical Analysis"],
+    github: "https://github.com/flashdash101/Credit_Risk_Model",
+    image: "./LoanRisk.webp",
   },
 
   {
@@ -20,7 +20,7 @@ const projects = [
       "Monte Carlo simulation",
       "Statistical Analysis",
     ],
-    github: "https://github.com/flashdash101/football-suggest",
+    github: "https://github.com/flashdash101/football-suggest/tree/master",
     demo: "https://flashdash101.github.io/football-suggest/",
     image: "./FootballScout.png",
   },
