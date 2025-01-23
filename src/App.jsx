@@ -17,7 +17,7 @@ const ProfileImage = () => (
     className="profile-container"
   >
     <img 
-      src="Resources/profilepic.jpeg"
+      src="./profilepic.jpeg"
       alt="Emmanuel A."
       className="profile-image"
     />
