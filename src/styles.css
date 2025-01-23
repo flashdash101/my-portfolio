@@ -1,0 +1,163 @@
+/* styles.css */
+/* Updated Profile Container */
+/* Profile Section */
+/* Base Styles */
+:root {
+  --border-color: #666; /* Lighter border color */
+  --zoom-duration: 0.8s;
+}
+
+/* Animations */
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* Glowing aura effect */
+.profile-image::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 20%;
+  background: linear-gradient(45deg, 
+    rgba(33, 150, 243, 0.4),
+    rgba(76, 175, 80, 0.4),
+    rgba(33, 150, 243, 0.4));
+  z-index: -1;
+  animation: aura-pulse 2s ease-in-out infinite;
+  filter: blur(20px);
+}
+
+@keyframes aura-pulse {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(0.95);
+  }
+}
+
+/* Enhance existing glow */
+@keyframes glow {
+  0% { 
+    box-shadow: 0 0 20px 10px rgba(33, 150, 243, 0.3),
+                0 0 40px 20px rgba(76, 175, 80, 0.2); 
+  }
+  50% { 
+    box-shadow: 0 0 30px 15px rgba(33, 150, 243, 0.5),
+                0 0 50px 25px rgba(76, 175, 80, 0.3); 
+  }
+  100% { 
+    box-shadow: 0 0 20px 10px rgba(33, 150, 243, 0.3),
+                0 0 40px 20px rgba(76, 175, 80, 0.2); 
+  }
+}
+
+
+.profile-container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 2rem 4rem 2rem 0; /* Adjusted right margin */
+}
+
+/* Profile Section */
+.profile-container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 2rem 4rem 2rem 0; /* Adjusted right margin */
+}
+
+.profile-image {
+  width: 220px; /* Slightly larger */
+  height: 220px;
+  border-radius: 50%;
+  border: 3px solid var(--border-color);
+  box-shadow: 0 0 20px rgba(33, 150, 243, 0.5);
+  animation: glow 3s ease-in-out infinite;
+}
+
+/* Card Styles */
+.card, .lab-card {
+  background: rgba(25, 25, 25, 0.8);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 1.5rem auto;
+  max-width: 800px;
+  animation: zoomIn var(--zoom-duration) ease-out forwards;
+}
+
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Updated Text Sizes */
+.main-title {
+  font-size: 3.5rem;
+}
+
+.section-title {
+  font-size: 2.6rem;
+}
+
+.main-subtitle {
+  font-size: 1.6rem;
+}
+
+.lab-card h3 {
+  font-size: 1.8rem;
+}
+
+/* Lab Card Consistency */
+.lab-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 1.5rem 0;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Animation Simplification */
+.MovingComponent {
+  animation-iteration-count: 1 !important;
+}
+
+.content-wrapper {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.text-content {
+  max-width: 800px;
+}
