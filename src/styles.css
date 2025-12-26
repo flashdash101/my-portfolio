@@ -1,13 +1,8 @@
-/* styles.css */
-/* Updated Profile Container */
-/* Profile Section */
-/* Base Styles */
-:root {
-  --border-color: #666; /* Lighter border color */
-  --zoom-duration: 0.8s;
-}
+/* styles.css - Claymorphism Data Science Design */
 
-/* Animations */
+/* ========================================
+   ANIMATIONS
+   ======================================== */
 @keyframes zoomIn {
   from {
     opacity: 0;
@@ -19,135 +14,204 @@
   }
 }
 
-
-/* Glowing aura effect */
-.profile-image::after {
-  content: '';
-  position: absolute;
-  top: -5px;
-  left: -5px;
-  right: -5px;
-  bottom: -5px;
-  border-radius: 20%;
-  background: linear-gradient(45deg, 
-    rgba(33, 150, 243, 0.4),
-    rgba(76, 175, 80, 0.4),
-    rgba(33, 150, 243, 0.4));
-  z-index: -1;
-  animation: aura-pulse 2s ease-in-out infinite;
-  filter: blur(20px);
-}
-
-@keyframes aura-pulse {
-  0% {
-    opacity: 0.6;
-    transform: scale(0.95);
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
   }
   50% {
-    opacity: 0.9;
-    transform: scale(1.05);
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
   }
   100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes data-pulse {
+  0%, 100% {
     opacity: 0.6;
-    transform: scale(0.95);
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
   }
 }
 
-/* Enhance existing glow */
-@keyframes glow {
-  0% { 
-    box-shadow: 0 0 20px 10px rgba(33, 150, 243, 0.3),
-                0 0 40px 20px rgba(76, 175, 80, 0.2); 
-  }
-  50% { 
-    box-shadow: 0 0 30px 15px rgba(33, 150, 243, 0.5),
-                0 0 50px 25px rgba(76, 175, 80, 0.3); 
-  }
-  100% { 
-    box-shadow: 0 0 20px 10px rgba(33, 150, 243, 0.3),
-                0 0 40px 20px rgba(76, 175, 80, 0.2); 
-  }
-}
-
-
+/* ========================================
+   PROFILE SECTION - Claymorphism Style
+   ======================================== */
 .profile-container {
   display: flex;
   justify-content: flex-end;
-  margin: 2rem 4rem 2rem 0; /* Adjusted right margin */
-}
-
-/* Profile Section */
-.profile-container {
-  display: flex;
-  justify-content: flex-end;
-  margin: 2rem 4rem 2rem 0; /* Adjusted right margin */
+  margin: 2rem 4rem 2rem 0;
+  animation: float 4s ease-in-out infinite;
 }
 
 .profile-image {
-  width: 220px; /* Slightly larger */
-  height: 220px;
+  width: 240px;
+  height: 240px;
   border-radius: 50%;
-  border: 3px solid var(--border-color);
-  box-shadow: 0 0 20px rgba(33, 150, 243, 0.5);
-  animation: glow 3s ease-in-out infinite;
+  border: 4px solid var(--clay-light);
+  box-shadow: var(--shadow-lg), 
+              0 0 60px rgba(91, 155, 213, 0.4),
+              inset 0 0 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: brightness(1.05) contrast(1.1);
 }
 
-/* Card Styles */
+.profile-image:hover {
+  transform: scale(1.08) rotateZ(2deg);
+  box-shadow: var(--shadow-lg), 
+              0 0 80px rgba(91, 155, 213, 0.6),
+              0 0 40px rgba(112, 173, 71, 0.3),
+              inset 0 0 30px rgba(0, 0, 0, 0.3);
+  filter: brightness(1.1) contrast(1.15);
+}
+
+.profile-image::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, 
+    var(--accent-primary),
+    var(--accent-secondary),
+    var(--accent-tertiary),
+    var(--accent-purple));
+  background-size: 300% 300%;
+  z-index: -1;
+  animation: gradient-shift 4s ease infinite, data-pulse 2s ease-in-out infinite;
+  filter: blur(25px);
+  opacity: 0.7;
+}
+
+/* ========================================
+   CARD STYLES - Claymorphism
+   ======================================== */
 .card, .lab-card {
-  background: rgba(25, 25, 25, 0.8);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
+  background: var(--clay-medium);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
   padding: 2rem;
   margin: 1.5rem auto;
-  max-width: 800px;
-  animation: zoomIn var(--zoom-duration) ease-out forwards;
+  max-width: 900px;
+  box-shadow: var(--shadow-md);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
 
-
-@keyframes zoomIn {
-  from {
-    transform: scale(0.95);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+.card::before, .lab-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    var(--accent-primary) 0%, 
+    var(--accent-secondary) 50%, 
+    var(--accent-tertiary) 100%);
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
-/* Updated Text Sizes */
+.card:hover::before, .lab-card:hover::before {
+  opacity: 1;
+}
+
+.card:hover, .lab-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg), 0 0 40px rgba(91, 155, 213, 0.15);
+  border-color: var(--accent-primary);
+}
+
+/* ========================================
+   TYPOGRAPHY - Visual Hierarchy
+   ======================================== */
 .main-title {
   font-size: 3.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+  animation: fadeSlideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  text-shadow: 0 0 40px rgba(91, 155, 213, 0.3);
 }
 
 .section-title {
   font-size: 2.6rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  position: relative;
+  display: inline-block;
+  animation: fadeSlideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-primary), transparent);
+  border-radius: 2px;
+  animation: expandWidth 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+@keyframes expandWidth {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .main-subtitle {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin: 1rem 0;
 }
 
 .lab-card h3 {
   font-size: 1.8rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
 }
 
-/* Lab Card Consistency */
-.lab-card {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 15px;
-  padding: 2rem;
-  margin: 1.5rem 0;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Animation Simplification */
-.MovingComponent {
-  animation-iteration-count: 1 !important;
-}
-
+/* ========================================
+   LAYOUT - Content Wrapper
+   ======================================== */
 .content-wrapper {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -160,4 +224,63 @@
 
 .text-content {
   max-width: 800px;
+}
+
+/* Expertise Badges */
+.expertise-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--clay-dark);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeSlideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+  cursor: default;
+}
+
+.expertise-badge:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: var(--shadow-md), 0 8px 20px rgba(91, 155, 213, 0.2);
+  border-color: rgba(91, 155, 213, 0.3);
+  background: var(--clay-medium);
+}
+
+.expertise-badge svg {
+  transition: transform 0.3s;
+}
+
+.expertise-badge:hover svg {
+  transform: scale(1.2) rotate(5deg);
+}
+
+.expertise-badge span {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+@media (max-width: 968px) {
+  .content-wrapper {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .profile-container {
+    justify-content: center;
+    margin: 2rem 0;
+  }
+  
+  .main-title {
+    font-size: 2.5rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
 }

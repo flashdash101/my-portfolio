@@ -1,97 +1,101 @@
 import React from 'react';
-import { HashRouter as Router, Route, Link, Routes } from 'react-router-dom';
-import { Github, ExternalLink, Linkedin, FlaskConical, Database } from 'lucide-react';
+import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import { Github, ExternalLink, Linkedin, FlaskConical, Database, BarChart3, BrainCircuit, TrendingUp, ArrowRight, ArrowLeft, Terminal } from 'lucide-react';
 import projects from './projects';
-import MovingComponent from 'react-moving-text';
-import './styles.css'; 
-import TypeWriter from './TypeWriter';
+import NeuralNetwork from './NeuralNetwork';
+import './brutalist.css';
+import './brutalist-lab.css';
 
-
-
-// Profile Image Component
+// Profile Image Component - Top Left Position
 const ProfileImage = () => (
-  <MovingComponent
-    type="zoomIn"
-    duration="1000ms"
-    iteration="1"
-    className="profile-container"
-  >
+  <div className="profile-container">
     <img 
       src="./profilepic.jpeg"
       alt="Emmanuel A."
       className="profile-image"
     />
-  </MovingComponent>
+    <div style={{
+      marginTop: '1rem',
+      fontSize: '0.7rem',
+      color: 'var(--text-muted)',
+      textTransform: 'uppercase',
+      letterSpacing: '0.1em',
+      fontWeight: '700'
+    }}>
+      /01
+    </div>
+  </div>
 );
 
 
-// Updated Lab Experience component
+// Brutalist Lab Experience component
 const LabExperience = () => {
   const labProjects = [
     {
       title: "Geolife Data Analysis",
       tasks: [
         "Time Zone Conversion for 1M+ GPS Points",
-        "Beijing Area Traffic Pattern Analysis",
-        "User Movement Analytics",
-        "Altitude Variation Studies",
-        "Distance Traveled Calculations"
+        "Beijing Area Traffic Pattern Analysis using PySpark",
+        "User Movement Analytics & Behavioral Modeling",
+        "Altitude Variation Studies with Statistical Methods",
+        "Distance Traveled Calculations & Spatial Analysis"
       ],
-      tech: ["PySpark", "Python", "Spark SQL", "Big Data"],
+      tech: ["PySpark", "Python", "Spark SQL", "Big Data", "Geospatial"],
       metrics: [
         { name: "Data Processed", value: "1GB" },
-        // { name: "Unique Users", value: "1,240" },
-        { name: "Total Data Points", value: "287M " }
+        { name: "Data Points", value: "287M" }
       ],
       github: "https://github.com/flashdash101/Geolife-Data-Analysis",
-      relevance: "This analysis of large-scale movement patterns provides valuable insights for urban planning, logistics optimization, and consumer behavior analysis. Businesses can leverage these findings to improve route planning, location-based services, and infrastructure development."
+      relevance: "Large-scale geospatial analysis demonstrating expertise in big data processing, distributed computing, and extracting business insights from location data. Applicable to urban planning, supply chain optimization, and location-based analytics."
     }
   ];
 
   return (
-    <div className="content lab-container">
-      <MovingComponent   type="zoomIn"
-      duration="600ms"
-      delay="0s"
-      direction="normal"
-      timing="ease"
-      iteration="1"
-      >
-        <h1 className="section-title">Academic Lab Work</h1>
-      </MovingComponent>
+    <div className="lab-container">
+      <h1 className="section-title">
+        <Terminal size={28} style={{ marginRight: '1rem', verticalAlign: 'middle' }} />
+        RESEARCH_
+      </h1>
+      <p style={{ 
+        color: 'var(--text-muted)', 
+        fontSize: '0.9rem',
+        marginBottom: '3rem',
+        maxWidth: '600px',
+        textTransform: 'uppercase',
+        letterSpacing: '0.05em'
+      }}>
+        Academic research projects // Data engineering // Analytics
+      </p>
       
       <div className="lab-grid">
         {labProjects.map((project, index) => (
-          <div key={index} className="lab-card glassmorphic expanded-lab-card">
+          <div key={index} className="lab-card expanded-lab-card">
             <div className="lab-header">
-              <FlaskConical className="lab-icon" size={24} />
+              <Database className="lab-icon" size={24} />
               <h3>{project.title}</h3>
             </div>
             
             <div className="metrics-grid">
               {project.metrics.map((metric, i) => (
                 <div key={i} className="metric-item">
-                  <Database size={20} />
                   <span className="metric-value">{metric.value}</span>
                   <span className="metric-name">{metric.name}</span>
                 </div>
               ))}
             </div>
 
-                        <div className="task-list">
-              <h4>Key Achievements:</h4>
+            <div className="task-list">
+              <h4>// Key Achievements</h4>
               {project.tasks.map((task, i) => (
-                // <MovingComponent key={i} type="fadeIn" duration="500ms" delay={`${i * 100}ms`} fillMode="forwards">
                 <div className="task-item" key={i}>
-                  <span className="task-bullet">▹</span>
+                  <span className="task-bullet">{String(i + 1).padStart(2, '0')}</span>
                   {task}
                 </div>
-                // </MovingComponent>
               ))}
             </div>
 
             <div className="business-relevance">
-              <h4>Business Applications:</h4>
+              <h4>// Business Impact</h4>
               <p>{project.relevance}</p>
             </div>
 
@@ -106,7 +110,7 @@ const LabExperience = () => {
             {project.github && (
               <div className="lab-github-link">
                 <a href={project.github} target="_blank" rel="noopener noreferrer">
-                  <Github size={18} /> View on GitHub
+                  <Github size={16} /> VIEW_SOURCE
                 </a>
               </div>
             )}
@@ -114,118 +118,258 @@ const LabExperience = () => {
         ))}
       </div>
 
-      <MovingComponent  type="zoomIn"
-        duration="600ms"
-        delay="0s"
-        direction="normal"
-        timing="ease"
-        iteration="1"
-        fillMode="backwards">
+      <div style={{ marginTop: '3rem' }}>
         <Link to="/" className="button gradient-button">
-          Back to Home
+          <ArrowLeft size={16} /> BACK_HOME
         </Link>
-      </MovingComponent>
+      </div>
     </div>
   );
 };
-// Home Component
+// Brutalist Home Component
 const Home = () => (
   <div className="container home-container">
-    {/* Navigation Buttons */}
+    {/* Fixed Navigation */}
     <nav className="top-nav">
-      <MovingComponent type="zoomIn"
-        duration="600ms"
-        delay="0s"
-        direction="normal"
-        timing="ease"
-        iteration="1"
-        fillMode="backwards">
-        <Link to="/projects" className="button large-text">
-          <span className="button-icon">🚀</span>
-          Projects
-        </Link>
-      </MovingComponent>
-
-      <MovingComponent  type="zoomIn"
-        duration="600ms"
-        delay="0s"
-        direction="normal"
-        timing="ease"
-        iteration="1"
-        fillMode="backwards">
-        <Link to="/lab" className="button large-text">
-          <FlaskConical size={20} />
-          Academic Lab
-        </Link>
-      </MovingComponent>
-
-      <MovingComponent type="zoomIn"
-        duration="600ms"
-        delay="0s"
-        direction="normal"
-        timing="ease"
-        iteration="1"
-        fillMode="backwards">
-        <a href="https://linkedin.com/in/emmanuelade29" className="button social-button">
-          <Linkedin size={20} />
-        </a>
-      </MovingComponent>
-
-      <MovingComponent type="zoomIn"
-        duration="600ms"
-        delay="0s"
-        direction="normal"
-        timing="ease"
-        iteration="1"
-        fillMode="backwards">
-        <a href="https://github.com/flashdash101" className="button social-button">
-          <Github size={20} />
-        </a>
-      </MovingComponent>
+      <Link to="/projects" className="button large-text">
+        PROJECTS_
+      </Link>
+      <Link to="/lab" className="button large-text">
+        RESEARCH_
+      </Link>
+      <a href="https://linkedin.com/in/emmanuelade29" className="button social-button" aria-label="LinkedIn">
+        <Linkedin size={18} />
+      </a>
+      <a href="https://github.com/flashdash101" className="button social-button" aria-label="GitHub">
+        <Github size={18} />
+      </a>
     </nav>
 
-    <div className="content-wrapper">
-      <div className="text-content">
-        <MovingComponent type="zoomIn" duration="1200ms" iteration="1">
-          <h1 className="main-title">
-            Emmanuel A
-            {/* <span className="blinking-cursor">_</span> */}
-          </h1>
-        </MovingComponent>
-
-        <div className="animated-description">
-          {/* <MovingComponent type="zoomIn" duration="1200ms" delay="400ms" iteration="1"> */}
-            <p className="main-subtitle">
-              <TypeWriter text="An aspiring student with a deep passion in AI, Machine learning and Data Science, eager to apply theoretical concepts in practical settings" />
-            </p>
-          {/* </MovingComponent> */}
+    <div className="hero-split-container">
+      {/* Left Side - Content */}
+      <div className="hero-content-left">
+        {/* Profile Image - Top Left */}
+        <ProfileImage />
+        
+        {/* Main Content */}
+        <div className="text-content">
+          <div style={{ 
+            fontSize: '0.75rem', 
+            color: 'var(--accent-highlight)',
+            marginBottom: '1rem',
+            textTransform: 'uppercase',
+            letterSpacing: '0.2em',
+            fontWeight: '700'
+          }}>
+            Data Scientist // ML Engineer
+          </div>
           
-          {/* <MovingComponent type="zoomIn" duration="1200ms" delay="800ms" iteration="1"> */}
-            <p className="main-subtitle">
-              <TypeWriter text="Transforming raw data into meaningful insights through algorithmic innovation " />
-              {/* <span className="highlight">algorithmic innovation</span> */}
-            </p>
-          {/* </MovingComponent> */}
+          <h1 className="main-title">
+            EMMANUEL_
+          </h1>
+
+          <p className="main-subtitle">
+            Master of Engineering (MEng) Computer Science candidate who specializes in Machine Learning, Data Science and Full-Stack Engineering. Experienced in building production ready data pipelines and recommendation systems, using Python, FastAPI and Cloud technologies.
+          </p>
+          
+          <p className="main-subtitle">
+            Building end-to-end ML systems with a focus on statistical modeling, deep learning, and production-grade data infrastructure.
+          </p>
+          
+          {/* Expertise Areas */}
+          <div style={{ 
+            display: 'flex', 
+            gap: '0', 
+            marginTop: '3rem', 
+            flexWrap: 'wrap' 
+          }}>
+            <div className="expertise-badge" data-tools="Pandas / SQL / Spark">
+              <BarChart3 size={20} />
+              <span className="expertise-text" data-default="Data Analytics">Data Analytics</span>
+            </div>
+            <div className="expertise-badge" style={{ marginLeft: '-1px' }} data-tools="Scikit-Learn / TensorFlow / PyTorch">
+              <BrainCircuit size={20} />
+              <span className="expertise-text" data-default="Machine Learning">Machine Learning</span>
+            </div>
+            <div className="expertise-badge" style={{ marginLeft: '-1px' }} data-tools="XGBoost / Random Forest / Neural Networks">
+              <TrendingUp size={20} />
+              <span className="expertise-text" data-default="Predictive Models">Predictive Models</span>
+            </div>
+          </div>
+
+          {/* Stats Row */}
+          <div style={{ 
+            display: 'flex', 
+            gap: '0', 
+            marginTop: '3rem',
+            borderTop: 'var(--border-thin)',
+            paddingTop: '2rem'
+          }}>
+            <div style={{ 
+              padding: '0 2rem 0 0',
+              borderRight: 'var(--border-thin)'
+            }}>
+              <div style={{ 
+                fontSize: '2rem', 
+                fontWeight: '900',
+                color: 'var(--text-primary)'
+              }}>03</div>
+              <div style={{ 
+                fontSize: '0.7rem', 
+                color: 'var(--text-muted)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em'
+              }}>Projects</div>
+            </div>
+            <div style={{ padding: '0 2rem' }}>
+              <div style={{ 
+                fontSize: '2rem', 
+                fontWeight: '900',
+                color: 'var(--text-primary)'
+              }}>287M+</div>
+              <div style={{ 
+                fontSize: '0.7rem', 
+                color: 'var(--text-muted)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em'
+              }}>Data Points</div>
+            </div>
+          </div>
         </div>
       </div>
-      
-      <ProfileImage />
+
+      {/* Right Side - 3D Neural Network */}
+      <div className="hero-neural-right">
+        <NeuralNetwork />
+      </div>
     </div>
   </div>
 );
-// New HoverButton component for interactive effects
-const HoverButton = ({ children, effect, delay }) => (
-  <MovingComponent
-    type={effect}
-    duration="500ms"
-    delay={`${delay}ms`}
-    className="hover-transform"
-  >
-    {children}
-  </MovingComponent>
+// Brutalist Project Card
+const ProjectCard = ({ project, index }) => (
+  <div className="card" style={{ marginBottom: '0' }}>
+    <div className="card-image">
+      <img src={project.image} alt={project.title} className="project-image" />
+      <div style={{
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        background: 'var(--bg-primary)',
+        padding: '0.5rem 1rem',
+        fontSize: '0.7rem',
+        fontWeight: '900',
+        color: 'var(--text-primary)',
+        border: 'none',
+        letterSpacing: '0.1em'
+      }}>
+        /{String(index + 1).padStart(2, '0')}
+      </div>
+      {project.category && (
+        <div style={{
+          position: 'absolute',
+          bottom: '0',
+          left: '0',
+          background: 'var(--accent-highlight)',
+          padding: '0.4rem 0.8rem',
+          fontSize: '0.65rem',
+          fontWeight: '900',
+          color: 'var(--bg-primary)',
+          textTransform: 'uppercase',
+          letterSpacing: '0.05em'
+        }}>
+          {project.category}
+        </div>
+      )}
+    </div>
+    <div className="card-content">
+      <h3>
+        {project.title.toUpperCase()}_
+      </h3>
+      <p>{project.description}</p>
+      
+      {project.metrics && (
+        <div style={{ 
+          display: 'flex', 
+          gap: '0', 
+          margin: '1rem 0',
+          borderTop: 'var(--border-thin)',
+          borderBottom: 'var(--border-thin)',
+          padding: '1rem 0'
+        }}>
+          {Object.entries(project.metrics).map(([key, value]) => (
+            <div key={key} style={{ 
+              paddingRight: '1.5rem',
+              marginRight: '1.5rem',
+              borderRight: 'var(--border-thin)'
+            }}>
+              <span style={{ 
+                fontSize: '1.2rem', 
+                fontWeight: '900',
+                color: 'var(--accent-highlight)',
+                display: 'block'
+              }}>{value}</span>
+              <span style={{ 
+                fontSize: '0.65rem', 
+                color: 'var(--text-muted)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em'
+              }}>{key}</span>
+            </div>
+          ))}
+        </div>
+      )}
+      
+      <div className="tags">
+        {project.tags.map((tag, i) => (
+          <span key={i} className="tag">{tag}</span>
+        ))}
+      </div>
+      <div className="links">
+        <a href={project.github} target="_blank" rel="noopener noreferrer" className="link-secondary">
+          <Github size={14} /> SOURCE_
+        </a>
+        {project.demo && (
+          <a href={project.demo} target="_blank" rel="noopener noreferrer" className="link-primary">
+            <ExternalLink size={14} /> DEMO_
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
 );
 
-// Updated App component with new route
+// Brutalist Projects Page
+const Projects = () => (
+  <div className="content" style={{ padding: '100px 2rem 2rem 2rem' }}>
+    <h2 className="section-title">
+      PROJECTS_
+    </h2>
+    <p style={{ 
+      color: 'var(--text-muted)', 
+      fontSize: '0.9rem',
+      marginBottom: '3rem',
+      maxWidth: '600px',
+      textTransform: 'uppercase',
+      letterSpacing: '0.05em'
+    }}>
+      End-to-end machine learning solutions // Predictive analytics // Data applications
+    </p>
+    
+    <div className="projects-list">
+      {projects.map((project, index) => (
+        <ProjectCard key={index} project={project} index={index} />
+      ))}
+    </div>
+    
+    <div style={{ marginTop: '3rem' }}>
+      <Link to="/" className="button gradient-button">
+        <ArrowLeft size={16} /> BACK_HOME
+      </Link>
+    </div>
+  </div>
+);
+
+// Main App
 const App = () => (
   <Router>
     <div id="root">
@@ -237,120 +381,5 @@ const App = () => (
     </div>
   </Router>
 );
-
-// Additional helper components
-const AnimatedHeader = ({ children }) => (
-  <MovingComponent
-    type="fadeInFromTop"
-    duration="1000ms"
-    className="main-header"
-  >
-    {children}
-  </MovingComponent>
-);
-
-const AnimatedParagraph = ({ children }) => (
-  <MovingComponent
-    type="fadeInFromBottom"
-    duration="1200ms"
-    className="animated-text"
-  >
-    <p>{children}</p>
-  </MovingComponent>
-);
-
-const SocialLink = ({ href, icon }) => (
-  <MovingComponent type="slideInFromRight" duration="800ms" className="social-link">
-    <a href={href} className="button social-button">
-      {icon}
-    </a>
-  </MovingComponent>
-);
-
-// Keep your existing ProjectCard and Projects components
-
-
-const ProjectCard = ({ project, index }) => (
-  <MovingComponent
-    type="fadeInFromBottom"
-    duration="1000ms"
-    delay={`${index * 200}ms`}
-    direction="normal"
-    timing="ease"
-    iteration="1"
-    fillMode="forwards"
-  >
-    <div className="card">
-      <div className="card-image">
-        <img src={project.image} alt={project.title} className="project-image" />
-      </div>
-      <div className="card-content">
-        <h3>{project.title}</h3>
-        <p>{project.description}</p>
-        <div className="tags">
-          {project.tags.map((tag, index) => (
-            <span key={index} className="tag">{tag}</span>
-          ))}
-        </div>
-        <div className="links">
-          <a href={project.github} target="_blank" rel="noopener noreferrer">
-            <Github size={16} /> GitHub
-          </a>
-          <a href={project.demo} target="_blank" rel="noopener noreferrer">
-            <ExternalLink size={16} /> Demo
-          </a>
-        </div>
-      </div>
-    </div>
-  </MovingComponent>
-);
-
-const Projects = () => (
-  <div className="content">
-    <div className="HeaderName">
-      <MovingComponent
-        type="fadeInFromTop"
-        duration="1000ms"
-        delay="0s"
-        direction="normal"
-        timing="ease"
-        iteration="1"
-        fillMode="forwards"
-      >
-        My projects!
-      </MovingComponent>
-    </div>
-    <div className="projects-list">
-      {projects.map((project, index) => (
-        <ProjectCard key={index} project={project} index={index} />
-      ))}
-    </div>
-    <MovingComponent
-      type="fadeInFromBottom"
-      duration="1000ms"
-      delay={`${projects.length * 200 + 200}ms`}
-      direction="normal"
-      timing="ease"
-      iteration="1"
-      fillMode="forwards"
-    >
-      <Link to="/" className="button">
-        Back to Home
-      </Link>
-    </MovingComponent>
-  </div>
-);
-
-// // Main App component
-// const App = () => (
-//   <Router>
-//     <div id="root">
-//       <Routes>
-//         <Route path="/" element={<Home />} />
-//         <Route path="/projects" element={<Projects />} />
-//       </Routes>
-//     </div>
-//   </Router>
-// );
 
 export default App;

@@ -1,22 +1,16 @@
-// Typing effect component
-import React, { useState, useEffect } from 'react';
+// Instant Fade & Slide Reveal Animation - Data Science Theme
+import React from 'react';
+import './fade-reveal.css';
 
-const TypeWriter = ({ text, speed = 30 }) => {
-    const [displayText, setDisplayText] = useState('');
-    const [currentIndex, setCurrentIndex] = useState(0);
-  
-    useEffect(() => {
-      if (currentIndex < text.length) {
-        const timeout = setTimeout(() => {
-          setDisplayText(prev => prev + text[currentIndex]);
-          setCurrentIndex(prev => prev + 1);
-        }, speed);
-  
-        return () => clearTimeout(timeout);
-      }
-    }, [currentIndex, text, speed]);
-  
-    return <span>{displayText}</span>;
+const FadeReveal = ({ text, delay = 0, className = '' }) => {
+  return (
+    <span 
+      className={`fade-reveal ${className}`}
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      {text}
+    </span>
+  );
 };
-  
-export default TypeWriter;
+
+export default FadeReveal;
