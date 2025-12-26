@@ -235,6 +235,8 @@ body {
   display: block;
   outline: 3px solid transparent;
   outline-offset: 6px;
+  object-fit: contain;
+  object-position: center;
 }
 
 .profile-image:hover {
@@ -538,13 +540,39 @@ body {
   .hero-content-left {
     width: 100%;
     border-right: none;
-    border-bottom: var(--border-thick);
+    order: 1;
   }
 
   .hero-neural-right {
     width: 100%;
-    height: 50vh;
+    height: 60vh;
+    min-height: 400px;
     border-left: none;
+    order: 2;
+    z-index: 1;
+  }
+  
+  .profile-container {
+    position: relative;
+    text-align: center;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile-image {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  .text-content {
+    padding: 1.5rem;
+    border-left: none;
+    text-align: center;
   }
 }
 
@@ -574,5 +602,98 @@ body {
   position: sticky;
   top: 0;
   background: var(--bg-primary);
+}
+
+.hero-neural-right canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ========================================
+   MOBILE RESPONSIVE - Vertical Stack
+   ======================================== */
+@media (max-width: 768px) {
+  .hero-split-container {
+    flex-direction: column;
+    padding-top: 60px;
+    min-height: auto;
+  }
+
+  .hero-content-left {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-right: none;
+    border-bottom: none;
+    padding-bottom: 0;
+    order: 1;
+    align-items: center;
+  }
+
+  .hero-neural-right {
+    width: 100%;
+    height: 75vh;
+    min-height: 500px;
+    position: relative;
+    top: 0;
+    border-left: none;
+    border-top: var(--border-thick);
+    border-bottom: var(--border-thick);
+    z-index: 1;
+    order: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .profile-container {
+    position: relative;
+    top: 0;
+    padding: 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 3.5rem auto 0;
+  }
+
+  .profile-image {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    object-fit: contain;
+    object-position: center;
+    padding: 0.25rem;
+  }
+
+  .text-content {
+    padding: 1.5rem;
+    border-left: none;
+    text-align: center;
+  }
+  
+  .text-content .main-title {
+    text-align: center;
+  }
+  
+  .text-content .main-subtitle {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .content-wrapper {
+    grid-template-columns: 1fr;
+    padding-top: 60px;
+  }
+  
+  /* Ensure expertise badges wrap nicely */
+  .expertise-badge {
+    margin-left: 0 !important;
+    margin-bottom: -1px;
+  }
 }
 

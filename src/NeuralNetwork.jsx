@@ -7,6 +7,35 @@ import * as THREE from 'three';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Responsive Camera Component
+const ResponsiveCamera = () => {
+  const { camera } = useThree();
+  
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        // MOBILE: Move camera far back so the whole network fits
+        camera.position.set(0, 0, 20);
+        camera.fov = 60;
+      } else {
+        // DESKTOP: Standard position
+        camera.position.set(0, 0, 20);
+        camera.fov = 60;
+      }
+      camera.updateProjectionMatrix();
+    };
+    
+    // Trigger once on load
+    handleResize();
+    
+    // Add listener
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [camera]);
+
+  return null;
+};
+
 // Individual Node Component
 const Node = ({ position, isActive, isDropped }) => {
   const meshRef = useRef();
@@ -215,7 +244,15 @@ const InferenceResult = ({ position, onPulseHit }) => {
   ]);
   const [isScrambling, setIsScrambling] = useState(false);
   const [maxPrediction, setMaxPrediction] = useState('RECRUITER');
+  const [isMobile, setIsMobile] = useState(false);
   const scramblingRef = useRef(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     if (onPulseHit && !scramblingRef.current) {
@@ -295,22 +332,28 @@ const InferenceResult = ({ position, onPulseHit }) => {
     }, scrambleInterval);
   };
 
+  // Mobile: position below network, Desktop: to the right
+  const mobilePosition = [0, -7, 0];
+  const desktopPosition = position;
+  const finalPosition = isMobile ? mobilePosition : desktopPosition;
+
   return (
-    <Html position={position} center>
+    <Html position={finalPosition} center>
       <div style={{
         background: '#000000',
         border: '2px solid #00ff00',
-        padding: '0.75rem 1rem',
+        padding: isMobile ? '0.5rem 0.75rem' : '0.75rem 1rem',
         fontFamily: "'JetBrains Mono', monospace",
         color: '#00ff00',
-        minWidth: '220px',
-        fontSize: '0.55rem',
+        minWidth: isMobile ? '180px' : '220px',
+        fontSize: isMobile ? '0.45rem' : '0.55rem',
         letterSpacing: '0.03em',
         lineHeight: '1.4',
         textAlign: 'left',
         boxShadow: '0 0 15px rgba(0, 255, 0, 0.2)',
         pointerEvents: 'none',
-        userSelect: 'none'
+        userSelect: 'none',
+        transform: isMobile ? 'scale(0.9)' : 'none'
       }}>
         <div style={{ 
           marginBottom: '0.5rem',
@@ -373,7 +416,7 @@ const InferenceResult = ({ position, onPulseHit }) => {
 };
 
 // Main Scene Component
-const Scene = ({ isHovered, onPulseHit }) => {
+const Scene = ({ isHovered, onPulseHit, isMobile }) => {
   const groupRef = useRef();
   const { camera } = useThree();
   const [droppedNodes, setDroppedNodes] = useState(new Set());
@@ -422,6 +465,7 @@ const Scene = ({ isHovered, onPulseHit }) => {
   // Scroll-triggered rotation
   useEffect(() => {
     if (!groupRef.current) return;
+    if (isMobile) return;
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -445,10 +489,12 @@ const Scene = ({ isHovered, onPulseHit }) => {
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
-  }, [camera]);
+  }, [camera, isMobile]);
+
+  const groupOffsetX = isMobile ? 0.5 : 0;
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} position={[groupOffsetX, 0, 0]}>
       {layers.map((layer, index) => (
         <NeuralLayer
           key={index}
@@ -474,27 +520,49 @@ const Scene = ({ isHovered, onPulseHit }) => {
 const NeuralNetwork = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [pulseHitTrigger, setPulseHitTrigger] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handlePulseHit = (count) => {
     setPulseHitTrigger(count);
   };
 
+  const handleInteraction = () => {
+    if (isMobile) {
+      // On mobile: toggle dropout on tap
+      setIsHovered(prev => !prev);
+    }
+  };
+
   return (
     <div 
       className="neural-network-container"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => !isMobile && setIsHovered(true)}
+      onMouseLeave={() => !isMobile && setIsHovered(false)}
+      onClick={handleInteraction}
+      onTouchStart={handleInteraction}
       style={{
         width: '100%',
         height: '100%',
-        position: 'relative'
+        position: 'relative',
+        cursor: isMobile ? 'pointer' : 'default',
+        touchAction: 'manipulation'
       }}
     >
       <Canvas
         camera={{ position: [0, 0, 20], fov: 60 }}
         style={{ background: 'transparent' }}
       >
-        <Scene isHovered={isHovered} onPulseHit={handlePulseHit} />
+        <ResponsiveCamera />
+        <Scene isHovered={isHovered} onPulseHit={handlePulseHit} isMobile={isMobile} />
       </Canvas>
     </div>
   );
