@@ -328,6 +328,11 @@ const ProjectCard = ({ project, index }) => (
         <a href={project.github} target="_blank" rel="noopener noreferrer" className="link-secondary">
           <Github size={14} /> SOURCE_
         </a>
+        {project.pageRoute && (
+          <Link to={project.pageRoute} className="link-primary">
+            <ArrowRight size={14} /> VIEW_
+          </Link>
+        )}
         {project.demo && (
           <a href={project.demo} target="_blank" rel="noopener noreferrer" className="link-primary">
             <ExternalLink size={14} /> DEMO_
@@ -369,6 +374,65 @@ const Projects = () => (
   </div>
 );
 
+const GreenParadoxProject = () => {
+  const embeddedPath = `${import.meta.env.BASE_URL}GreenParadox.html`;
+
+  return (
+    <div
+      className="content"
+      style={{
+        padding: '100px 1rem 2rem 1rem',
+        width: 'min(96vw, 1200px)',
+        maxWidth: '1200px',
+        margin: '0 auto'
+      }}
+    >
+      <h2 className="section-title">GREEN_HOUSE_PARADOX_</h2>
+      <p
+        style={{
+          color: 'var(--text-muted)',
+          fontSize: '0.9rem',
+          marginBottom: '2rem',
+          maxWidth: '760px',
+          textTransform: 'uppercase',
+          letterSpacing: '0.05em'
+        }}
+      >
+        Spatial analysis dashboard // Embedded project view
+      </p>
+
+      <div
+        className="card"
+        style={{ padding: '0.5rem', marginBottom: '1.5rem', minHeight: '78vh', width: '100%' }}
+      >
+        <iframe
+          src={embeddedPath}
+          title="Green House Paradox"
+          style={{ width: '100%', height: '75vh', border: 'none' }}
+        />
+      </div>
+
+      <div className="links" style={{ marginBottom: '2rem' }}>
+        <a
+          href="https://github.com/flashdash101/Green-House-Paradox"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link-secondary"
+        >
+          <Github size={14} /> SOURCE_
+        </a>
+        <a href={embeddedPath} target="_blank" rel="noopener noreferrer" className="link-primary">
+          <ExternalLink size={14} /> OPEN_FULL_PAGE_
+        </a>
+      </div>
+
+      <Link to="/projects" className="button gradient-button">
+        <ArrowLeft size={16} /> BACK_PROJECTS
+      </Link>
+    </div>
+  );
+};
+
 // Main App
 const App = () => (
   <Router>
@@ -376,6 +440,7 @@ const App = () => (
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/projects/green-house-paradox" element={<GreenParadoxProject />} />
         <Route path="/lab" element={<LabExperience />} />
       </Routes>
     </div>

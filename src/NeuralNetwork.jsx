@@ -7,6 +7,11 @@ import * as THREE from 'three';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const NODE_ROTATION_SPEED = 0.2;
+const PULSE_SPEED_MIN = 0.14;
+const PULSE_SPEED_VARIANCE = 0.05;
+const INFERENCE_UPDATE_INTERVAL_SECONDS = 3.5;
+
 // Responsive Camera Component
 const ResponsiveCamera = () => {
   const { camera } = useThree();
@@ -40,11 +45,11 @@ const ResponsiveCamera = () => {
 const Node = ({ position, isActive, isDropped }) => {
   const meshRef = useRef();
   
-  useFrame(() => {
+  useFrame((_, delta) => {
     if (meshRef.current) {
       // Subtle rotation animation
-      meshRef.current.rotation.x += 0.005;
-      meshRef.current.rotation.y += 0.005;
+      meshRef.current.rotation.x += NODE_ROTATION_SPEED * delta;
+      meshRef.current.rotation.y += NODE_ROTATION_SPEED * delta;
     }
   });
 
@@ -158,7 +163,7 @@ const Pulses = ({ layers, droppedNodes }) => {
       id: i,
       progress: Math.random(),
       path: Math.floor(Math.random() * layers[0].nodeCount),
-      speed: 0.003 + Math.random() * 0.002,
+      speed: PULSE_SPEED_MIN + Math.random() * PULSE_SPEED_VARIANCE,
       currentLayerIndex: 0,
       targetNodeIndex: 0,
       isActive: true
@@ -166,10 +171,10 @@ const Pulses = ({ layers, droppedNodes }) => {
     setPulses(initialPulses);
   }, [layers]);
 
-  useFrame(() => {
+  useFrame((_, delta) => {
     pulses.forEach((pulse, index) => {
       if (pulseRefs.current[index] && pulse.isActive) {
-        pulse.progress += pulse.speed;
+        pulse.progress += pulse.speed * delta;
         
         if (pulse.progress > 1) {
           // Reset pulse
@@ -421,6 +426,7 @@ const Scene = ({ isHovered, onPulseHit, isMobile }) => {
   const { camera } = useThree();
   const [droppedNodes, setDroppedNodes] = useState(new Set());
   const pulseHitCountRef = useRef(0);
+  const inferenceTimerRef = useRef(0);
 
   const layers = useMemo(() => [
     { position: [-6, 0, 0], nodeCount: 5 },
@@ -431,10 +437,12 @@ const Scene = ({ isHovered, onPulseHit, isMobile }) => {
   ], []);
 
   // Monitor pulses hitting output layer
-  useFrame(() => {
-    // Trigger inference update periodically
-    pulseHitCountRef.current += 1;
-    if (pulseHitCountRef.current % 180 === 0) { // Every ~3 seconds at 60fps
+  useFrame((_, delta) => {
+    // Trigger inference update on elapsed time (fps-independent)
+    inferenceTimerRef.current += delta;
+    if (inferenceTimerRef.current >= INFERENCE_UPDATE_INTERVAL_SECONDS) {
+      inferenceTimerRef.current = 0;
+      pulseHitCountRef.current += 1;
       onPulseHit(pulseHitCountRef.current);
     }
   });

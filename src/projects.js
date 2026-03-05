@@ -23,6 +23,29 @@ const projects = [
     }
   },
   {
+    title: "Green House Paradox",
+    description:
+      "• Curated and engineered a 2 step API pipeline, combining Nominatim geocoding and OSM overpass queries with multiple endpoint fallback logic to fetch real time park data across London Boroughs. • Performed bivariate spatial autocorrelation (Global Moran’s I + LISA) using libpysal / esda, with KNN spatial weight matrix to identify statistically significant clusters of deprivation/greenspaces regimes at LSOA level. • Built an interactive Folium choropleth map overlaying IMD deprivation scores against park density revealing that 77.2% of mapped parks fall within the 40% most deprived LSOSAs across 5 east London boroughs.",
+    tags: [
+      "Spatial Data Science",
+      "Folium",
+      "libpysal / esda",
+      "OSM Overpass",
+      "Nominatim",
+      "Python",
+      "Geospatial Analytics"
+    ],
+    github: "https://github.com/flashdash101/Green-House-Paradox",
+    demo: "",
+    image: "./anomalydetection.webp",
+    category: "Spatial Analytics",
+    pageRoute: "/projects/green-house-paradox",
+    metrics: {
+      parkCoverage: "77.2%",
+      boroughs: "5",
+    }
+  },
+  {
     title: "Financial Fraud Detection using Benford's Law",
     description:
       "Applied Benford's Law to a large-scale dataset of 50,000 credit card transactions to detect financial anomalies and potential fraud. Quantified deviations using Kolmogorov-Smirnov test which revealed significant divergence with MAPE of 32.20% and p-value of 0.0329, successfully flagging the dataset for potential irregularities. Developed analytical pipeline using Python, Pandas, and NumPy for data manipulation, with Matplotlib visualizations comparing observed vs. theoretical digit frequencies.",
@@ -42,27 +65,6 @@ const projects = [
     metrics: {
       transactions: "50K",
       mape: "32.20%",
-    }
-  },
-  {
-    title: "Statistical Process Control for Anomaly Detection",
-    description:
-      "Engineered a monitoring system using Individuals-Moving Range (I-MR) control charts to analyze time-series sensor data across 750,000 data points and 15 sensors. Built an automated analysis pipeline in Python (Pandas, NumPy) to calculate dynamic control limits and generate individual control chart visualizations for each sensor, demonstrating scalability and efficiency. Reduced false positive rates by implementing robust scaling techniques for predictive maintenance workflows.",
-    tags: [
-      "SPC",
-      "Time-Series Analysis",
-      "Control Charts",
-      "Python",
-      "Anomaly Detection",
-      "Predictive Maintenance"
-    ],
-    github: "https://github.com/flashdash101/Control-Charts",
-    demo: "",
-    image: "./anomalydetection.webp",
-    category: "Sensor Analytics",
-    metrics: {
-      dataPoints: "750K",
-      sensors: "15",
     }
   },
 ];
