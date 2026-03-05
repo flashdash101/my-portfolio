@@ -207,9 +207,9 @@ const Home = () => (
           }}>
             <div style={{ 
               padding: '0 2rem 0 0',
-              borderRight: 'var(--border-thin)'
+              // borderRight: 'var(--border-thin)'
             }}>
-              <div style={{ 
+              {/* <div style={{ 
                 fontSize: '2rem', 
                 fontWeight: '900',
                 color: 'var(--text-primary)'
@@ -219,10 +219,10 @@ const Home = () => (
                 color: 'var(--text-muted)',
                 textTransform: 'uppercase',
                 letterSpacing: '0.1em'
-              }}>Projects</div>
+              }}>Projects</div> */}
             </div>
-            <div style={{ padding: '0 2rem' }}>
-              <div style={{ 
+            <div >
+              {/* <div style={{ 
                 fontSize: '2rem', 
                 fontWeight: '900',
                 color: 'var(--text-primary)'
@@ -232,7 +232,7 @@ const Home = () => (
                 color: 'var(--text-muted)',
                 textTransform: 'uppercase',
                 letterSpacing: '0.1em'
-              }}>Data Points</div>
+              }}>Data Points</div> */}
             </div>
           </div>
         </div>
