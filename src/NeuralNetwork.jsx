@@ -18,14 +18,18 @@ const ResponsiveCamera = () => {
   
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 768) {
-        // MOBILE: Move camera far back so the whole network fits
-        camera.position.set(0, 0, 20);
-        camera.fov = 60;
+      const isMobileViewport = window.innerWidth < 768;
+      const isLargeDesktop = window.innerWidth >= 1440;
+
+      if (isMobileViewport) {
+        camera.position.set(0, 0, 21);
+        camera.fov = 62;
+      } else if (isLargeDesktop) {
+        camera.position.set(0, 0, 24);
+        camera.fov = 56;
       } else {
-        // DESKTOP: Standard position
-        camera.position.set(0, 0, 20);
-        camera.fov = 60;
+        camera.position.set(0, 0, 22);
+        camera.fov = 58;
       }
       camera.updateProjectionMatrix();
     };
@@ -337,13 +341,8 @@ const InferenceResult = ({ position, onPulseHit }) => {
     }, scrambleInterval);
   };
 
-  // Mobile: position below network, Desktop: to the right
-  const mobilePosition = [0, -7, 0];
-  const desktopPosition = position;
-  const finalPosition = isMobile ? mobilePosition : desktopPosition;
-
   return (
-    <Html position={finalPosition} center>
+    <Html position={position} center>
       <div style={{
         background: '#000000',
         border: '2px solid #00ff00',
@@ -421,10 +420,10 @@ const InferenceResult = ({ position, onPulseHit }) => {
 };
 
 // Main Scene Component
-const Scene = ({ isHovered, onPulseHit, isMobile }) => {
+const Scene = ({ onPulseHit, isMobile }) => {
   const groupRef = useRef();
   const { camera } = useThree();
-  const [droppedNodes, setDroppedNodes] = useState(new Set());
+  const droppedNodes = useMemo(() => new Set(), []);
   const pulseHitCountRef = useRef(0);
   const inferenceTimerRef = useRef(0);
 
@@ -447,29 +446,6 @@ const Scene = ({ isHovered, onPulseHit, isMobile }) => {
     }
   });
 
-  // Dropout effect on hover
-  useEffect(() => {
-    if (isHovered) {
-      const allNodeIds = [];
-      layers.forEach((layer, layerIndex) => {
-        for (let i = 0; i < layer.nodeCount; i++) {
-          allNodeIds.push(`${layerIndex}-${i}`);
-        }
-      });
-
-      // Randomly drop 30% of nodes
-      const dropCount = Math.floor(allNodeIds.length * 0.3);
-      const dropped = new Set();
-      for (let i = 0; i < dropCount; i++) {
-        const randomIndex = Math.floor(Math.random() * allNodeIds.length);
-        dropped.add(allNodeIds[randomIndex]);
-      }
-      setDroppedNodes(dropped);
-    } else {
-      setDroppedNodes(new Set());
-    }
-  }, [isHovered, layers]);
-
   // Scroll-triggered rotation
   useEffect(() => {
     if (!groupRef.current) return;
@@ -485,12 +461,12 @@ const Scene = ({ isHovered, onPulseHit, isMobile }) => {
     });
 
     tl.to(groupRef.current.rotation, {
-      y: Math.PI / 2,
+      y: Math.PI / 4,
       duration: 1
     });
 
     tl.to(camera.position, {
-      x: 10,
+      z: 25,
       duration: 1
     }, 0);
 
@@ -499,7 +475,7 @@ const Scene = ({ isHovered, onPulseHit, isMobile }) => {
     };
   }, [camera, isMobile]);
 
-  const groupOffsetX = isMobile ? 0.5 : 0;
+  const groupOffsetX = 0;
 
   return (
     <group ref={groupRef} position={[groupOffsetX, 0, 0]}>
@@ -517,7 +493,7 @@ const Scene = ({ isHovered, onPulseHit, isMobile }) => {
       
       {/* Inference Result Box - positioned to the right of output layer */}
       <InferenceResult 
-        position={[9, 0, 0]} 
+        position={[0, -7.2, 0]} 
         onPulseHit={pulseHitCountRef.current}
       />
     </group>
@@ -526,7 +502,6 @@ const Scene = ({ isHovered, onPulseHit, isMobile }) => {
 
 // Main Neural Network Component
 const NeuralNetwork = () => {
-  const [isHovered, setIsHovered] = useState(false);
   const [pulseHitTrigger, setPulseHitTrigger] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -543,25 +518,14 @@ const NeuralNetwork = () => {
     setPulseHitTrigger(count);
   };
 
-  const handleInteraction = () => {
-    if (isMobile) {
-      // On mobile: toggle dropout on tap
-      setIsHovered(prev => !prev);
-    }
-  };
-
   return (
     <div 
       className="neural-network-container"
-      onMouseEnter={() => !isMobile && setIsHovered(true)}
-      onMouseLeave={() => !isMobile && setIsHovered(false)}
-      onClick={handleInteraction}
-      onTouchStart={handleInteraction}
       style={{
         width: '100%',
         height: '100%',
         position: 'relative',
-        cursor: isMobile ? 'pointer' : 'default',
+        cursor: 'default',
         touchAction: 'manipulation'
       }}
     >
@@ -570,7 +534,7 @@ const NeuralNetwork = () => {
         style={{ background: 'transparent' }}
       >
         <ResponsiveCamera />
-        <Scene isHovered={isHovered} onPulseHit={handlePulseHit} isMobile={isMobile} />
+        <Scene onPulseHit={handlePulseHit} isMobile={isMobile} />
       </Canvas>
     </div>
   );

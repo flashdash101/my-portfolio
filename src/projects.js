@@ -3,7 +3,7 @@ const projects = [
   {
     title: "Football Player Recommendation System",
     description:
-      "Built an ML pipeline processing 1,000+ players from top 5 European leagues across 68 statistical features (xG, progressive carries, tackles). Engineered percentile-based filtering system with per-90 normalisation and weighted K-Means clustering for 8 position-specific roles. Designed composite scoring algorithm combining role-specific feature weighting with additive style bonuses and controlled stochastic sampling. Deployed production-ready FastAPI backend on Render with React/Vite frontend, achieving sub-second response times through feature engineering optimizations.",
+      "Built a Full Stack ML pipeline which processes 1,000+ players from top 5 European leagues across 68 statistical features (xG, progressive carries, tackles). Engineered percentile-based filtering system with per-90 normalisation and weighted K-Means clustering for 8 position-specific roles. Designed composite scoring algorithm combining role-specific feature weighting with additive style bonuses and controlled stochastic sampling. Deployed production-ready FastAPI backend on Render with React/Vite frontend, achieving sub-second response times through feature engineering optimizations.",
     tags: [
       "K-Means Clustering",
       "FastAPI",
@@ -25,7 +25,7 @@ const projects = [
   {
     title: "Green House Paradox",
     description:
-      "• Curated and engineered a 2 step API pipeline, combining Nominatim geocoding and OSM overpass queries with multiple endpoint fallback logic to fetch real time park data across London Boroughs. • Performed bivariate spatial autocorrelation (Global Moran’s I + LISA) using libpysal / esda, with KNN spatial weight matrix to identify statistically significant clusters of deprivation/greenspaces regimes at LSOA level. • Built an interactive Folium choropleth map overlaying IMD deprivation scores against park density revealing that 77.2% of mapped parks fall within the 40% most deprived LSOSAs across 5 east London boroughs.",
+      " Curated and engineered a 2 step API pipeline, combining Nominatim geocoding and OSM overpass queries with multiple endpoint fallback logic to fetch real time park data across London Boroughs. • Performed bivariate spatial autocorrelation (Global Moran’s I + LISA) using libpysal / esda, with KNN spatial weight matrix to identify statistically significant clusters of deprivation/greenspaces regimes at LSOA level. • Built an interactive Folium choropleth map overlaying IMD deprivation scores against park density revealing that 77.2% of mapped parks fall within the 40% most deprived LSOSAs across 5 east London boroughs.",
     tags: [
       "Spatial Data Science",
       "Folium",
