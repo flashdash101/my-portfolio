@@ -3,7 +3,7 @@ const projects = [
   {
     title: "Football Player Recommendation System",
     description:
-      "Built a Full Stack ML pipeline which processes 1,000+ players from top 5 European leagues across 68 statistical features (xG, progressive carries, tackles). Engineered percentile-based filtering system with per-90 normalisation and weighted K-Means clustering for 8 position-specific roles. Designed composite scoring algorithm combining role-specific feature weighting with additive style bonuses and controlled stochastic sampling. Deployed production-ready FastAPI backend on Render with React/Vite frontend, achieving sub-second response times through feature engineering optimizations.",
+      "Built an ML pipeline processing 1,000+ players from top 5 European leagues across 68 statistical features (xG, progressive carries, tackles). Engineered percentile-based filtering system with per-90 normalisation and weighted K-Means clustering for 8 position-specific roles. Designed composite scoring algorithm combining role-specific feature weighting with additive style bonuses and controlled stochastic sampling. Deployed production-ready FastAPI backend on Render with React/Vite frontend, achieving sub-second response times through feature engineering optimizations.",
     tags: [
       "K-Means Clustering",
       "FastAPI",
