@@ -1,6 +1,52 @@
 // Projects component - Data Science & Machine Learning Focus
 const projects = [
   {
+    title: "PeerGraph: Semantic Corporate Intelligence",
+    description:
+      "Curated a Graph Attention Network (GAT) to identify corporate peers across the S&P 500 by processing Item 1A Risk Factors from SEC filings; engineered a k-NN graph using Sentence-Transformer embeddings to capture thematic and structural market overlaps. Trained a multi-head GAT model to learn sector-aware representations, achieving 60.3% classification accuracy and uncovering hidden cross-sector dependencies, such as convergence between AI hardware (NVIDIA) and energy infrastructure (ONEOK). Optimised production deployment by decoupling model training from serving; exported graph embeddings to NumPy snapshots for sub-1ms similarity-search inference, reducing container footprint by 98% and eliminating the need for a heavy PyTorch runtime in production.",
+    tags: [
+      "Python",
+      "PyTorch",
+      "Transformers",
+      "Graph Attention Network",
+      "Sentence-Transformers",
+      "Docker",
+      "APIs"
+    ],
+    github: "https://github.com/flashdash101/PeerGraph-GAT",
+    demo: "",
+    image: "./graph.png",
+    imageScale: 0.90,
+    category: "ML & Deep Learning",
+    metrics: {
+      accuracy: "60.3%",
+      speed: "<1ms",
+      footprint: "-98%",
+    }
+  },
+  {
+    title: "Structural Biology Generative AI Evaluation",
+    description:
+      "Led an 8-person team to develop a diagnostic pipeline that evaluates the geometric reliability of AlphaFold protein structure predictions against PDB ground truths. Engineered a custom diagonal extraction algorithm with NumPy/SciPy to compute rotationally invariant distance matrices for sequence-specific error mapping beyond standard RMSD-based superposition. Implemented a mu + 2sigma anomaly detection threshold to identify geometric hallucinations such as atomic clashes and bond violations, including high-confidence models (>90% pLDDT). Built an interactive 9-component Plotly dashboard for real-time diagnostics and mapping prediction errors to protein secondary structures (helix, sheet, loop).",
+    tags: [
+      "Bioinformatics",
+      "Generative AI",
+      "AlphaFold",
+      "Python",
+      "BioPython",
+      "Plotly",
+      "NumPy/SciPy"
+    ],
+    github: "https://github.com/flashdash101/Generative-AI-in-Structural-Biology",
+    demo: "",
+    image: "./protein.png",
+    category: "ML & Bioinformatics",
+    metrics: {
+      team: "8",
+      dashboard: "9",
+    }
+  },
+  {
     title: "Football Player Recommendation System",
     description:
       "Built an ML pipeline processing 1,000+ players from top 5 European leagues across 68 statistical features (xG, progressive carries, tackles). Engineered percentile-based filtering system with per-90 normalisation and weighted K-Means clustering for 8 position-specific roles. Designed composite scoring algorithm combining role-specific feature weighting with additive style bonuses and controlled stochastic sampling. Deployed production-ready FastAPI backend on Render with React/Vite frontend, achieving sub-second response times through feature engineering optimizations.",
@@ -20,29 +66,6 @@ const projects = [
     metrics: {
       players: "1,000+",
       features: "68",
-    }
-  },
-  {
-    title: "Green House Paradox",
-    description:
-      " Curated and engineered a 2 step API pipeline, combining Nominatim geocoding and OSM overpass queries with multiple endpoint fallback logic to fetch real time park data across London Boroughs. • Performed bivariate spatial autocorrelation (Global Moran’s I + LISA) using libpysal / esda, with KNN spatial weight matrix to identify statistically significant clusters of deprivation/greenspaces regimes at LSOA level. • Built an interactive Folium choropleth map overlaying IMD deprivation scores against park density revealing that 77.2% of mapped parks fall within the 40% most deprived LSOSAs across 5 east London boroughs.",
-    tags: [
-      "Spatial Data Science",
-      "Folium",
-      "libpysal / esda",
-      "OSM Overpass",
-      "Nominatim",
-      "Python",
-      "Geospatial Analytics"
-    ],
-    github: "https://github.com/flashdash101/Green-House-Paradox",
-    demo: "",
-    image: "./anomalydetection.webp",
-    category: "Spatial Analytics",
-    pageRoute: "/projects/green-house-paradox",
-    metrics: {
-      parkCoverage: "77.2%",
-      boroughs: "5",
     }
   },
   {
